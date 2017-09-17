@@ -16,7 +16,7 @@ const Brick = function(c, context, row, col) {
 	function init() {
 		brick = {
 			x: (col)*BRICK_WIDTH + col*BRICK_MARGIN,
-			y: (row)*BRICK_HEIGHT + row*BRICK_MARGIN,
+			y: (row)*BRICK_HEIGHT + row*BRICK_MARGIN + 10,
 			w: BRICK_WIDTH,
 			h: BRICK_HEIGHT,
 			show: true

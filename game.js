@@ -10,8 +10,8 @@
 	canvas.height = CANVAS_HEIGHT;
 
 	const GAME_LIVES = 3;
-	const BRICK_ROWS = 3;
-	const BRICK_COLS = 9;
+	const BRICK_ROWS = 1;
+	const BRICK_COLS = 8;
 	
 	// Initliaze Background
 	var bg = new Image();
@@ -96,10 +96,11 @@
 					alert("GAME OVER");
 					stop();
 				} else {
-					init();
+					ball.init();
 				}
 			}
 
+			var destroyedBricks = 0;
 			// Detect Ball And Brick Collision
 			for (var i=0; i< BRICK_ROWS; i++) {
 				for (var j=0; j< BRICK_COLS; j++) {
@@ -107,11 +108,19 @@
 
 					if(brick.show) {
 						if(ballPos.y - ballPos.r <= brick.y + brick.h && ballPos.x >= brick.x && ballPos.x <= brick.x + brick.w) {
-							console.log("COLLIDED WITH " + i + " " + j);
 							ball.collided(bricks[i][j]);
 						}
+					} else {
+						destroyedBricks++;
 					}
 				}
+			}
+
+			console.log(destroyedBricks);
+
+			if ( destroyedBricks === BRICK_ROWS*BRICK_COLS) {
+				alert("YOU WON");
+				stop();
 			}
 		}
 

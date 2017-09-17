@@ -6,7 +6,7 @@ const Ball = function() {
 		ball = {
 			x: 180,
 			y: 320,
-			r: 10,
+			r: 5,
 			vx: 3,
 			vy: 3
 		}
