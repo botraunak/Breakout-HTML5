@@ -4,8 +4,8 @@ const Ball = function() {
 	// Initalize Ball
 	function init() {
 		ball = {
-			x: 100,
-			y: 100,
+			x: 180,
+			y: 320,
 			r: 10,
 			vx: 3,
 			vy: 3
@@ -44,11 +44,16 @@ const Ball = function() {
 	function collided(collisionWith) {
 
 		// Detect Collision with PADDLE
-		if (collisionWith.TYPE == "PADDLE") {
+		if (collisionWith.TYPE === "PADDLE") {
 			var paddle = collisionWith.getPaddle();
 			var third_start = paddle.x + (paddle.w/3);
 			var third_end = paddle.x + paddle.w - (paddle.w/3);
 
+			ball.vy = -ball.vy;
+		}
+
+		if (collisionWith.TYPE === "BRICK") {
+			collisionWith.hide();
 			ball.vy = -ball.vy;
 		}
 	}

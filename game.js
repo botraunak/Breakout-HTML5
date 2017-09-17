@@ -10,9 +10,10 @@
 	canvas.height = CANVAS_HEIGHT;
 
 	const GAME_LIVES = 3;
-
-	// Initliaze Background
+	const BRICK_ROWS = 3;
+	const BRICK_COLS = 9;
 	
+	// Initliaze Background
 	var bg = new Image();
 
 	bg.onload = function() {
@@ -25,6 +26,14 @@
 
 	bg.src = "./assets/bg.jpg";
 
+	function create2dArr(x,y) {
+    	var arr = [];
+    	for(var i = 0; i < y; i++) {
+        	arr.push(Array(x).fill(0));
+    	}
+    	return arr; 
+	}
+
 	// Breakout Game
 	const Breakout = function() {
 		
@@ -34,6 +43,7 @@
 		var ball = new Ball();
 		var paddle = new Paddle(canvas, ctx);
 		var lives = GAME_LIVES;
+		var bricks = create2dArr(BRICK_ROWS, BRICK_COLS);
 
 		// Initialize the Game State
 		function init() {
@@ -43,6 +53,14 @@
 			}
 			stopped = false;
 			ball.init();
+
+			// Initialize Bricks
+			for (var i=0; i< BRICK_ROWS; i++) {
+				for (var j=0; j< BRICK_COLS; j++) {
+					bricks[i][j] = new Brick(canvas, ctx, i, j);
+					bricks[i][j].init();
+				}
+			}
 			paddle.init();
 		}
 
@@ -52,6 +70,13 @@
 			drawBg();
 			ball.draw();
 			paddle.draw();
+
+			// Draw Bricks
+			for (var i=0; i< BRICK_ROWS; i++) {
+				for (var j=0; j< BRICK_COLS; j++) {
+					bricks[i][j].draw();
+				}
+			}
 		}
 
 		// Game Logic Updates
@@ -72,6 +97,20 @@
 					stop();
 				} else {
 					init();
+				}
+			}
+
+			// Detect Ball And Brick Collision
+			for (var i=0; i< BRICK_ROWS; i++) {
+				for (var j=0; j< BRICK_COLS; j++) {
+					var brick = bricks[i][j].getBrick();
+
+					if(brick.show) {
+						if(ballPos.y - ballPos.r <= brick.y + brick.h && ballPos.x >= brick.x && ballPos.x <= brick.x + brick.w) {
+							console.log("COLLIDED WITH " + i + " " + j);
+							ball.collided(bricks[i][j]);
+						}
+					}
 				}
 			}
 		}
