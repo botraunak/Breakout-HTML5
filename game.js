@@ -9,6 +9,22 @@
 	canvas.width = CANVAS_WIDTH;
 	canvas.height = CANVAS_HEIGHT;
 
+	const GAME_LIVES = 3;
+
+	// Initliaze Background
+	
+	var bg = new Image();
+
+	bg.onload = function() {
+		drawBg();
+	}
+
+	function drawBg() {
+		ctx.drawImage(bg,0,0);
+	}
+
+	bg.src = "./assets/bg.jpg";
+
 	// Breakout Game
 	const Breakout = function() {
 		
@@ -17,6 +33,7 @@
 		var stopped = false;
 		var ball = new Ball();
 		var paddle = new Paddle(canvas, ctx);
+		var lives = GAME_LIVES;
 
 		// Initialize the Game State
 		function init() {
@@ -32,6 +49,7 @@
 		// Draw The Game Scene
 		function draw() {
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			drawBg();
 			ball.draw();
 			paddle.draw();
 		}
@@ -44,8 +62,17 @@
 			var paddlePos = paddle.getPaddle();
 
 			// Detect Ball And Paddle Collision
-			if (ballPos.y + ballPos.r >= CANVAS_HEIGHT - paddlePos.h && ballPos.x >= paddlePos.x && ballPos.x <= paddlePos.x + paddlePos.w) {
+			if (ballPos.y + ballPos.r >= paddlePos.y && ballPos.x >= paddlePos.x && ballPos.x <= paddlePos.x + paddlePos.w) {
 				ball.collided(paddle);
+			}
+			if (ballPos.y >= paddlePos.y && (ballPos.x <= paddlePos.x || ballPos.x >= paddlePos.x + paddlePos.w)) {
+				lives--;
+				if(lives <= 0) {
+					alert("GAME OVER");
+					stop();
+				} else {
+					init();
+				}
 			}
 		}
 

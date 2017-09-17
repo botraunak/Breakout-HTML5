@@ -16,7 +16,7 @@ const Ball = function() {
 	// Draw Ball
 	function draw() {
 		ctx.save();
-		ctx.fillStyle = 'green';
+		ctx.fillStyle = 'white';
 		ctx.beginPath();
 		ctx.arc(ball.x, ball.y, ball.r, 0, 2*Math.PI);
 		ctx.fill();
