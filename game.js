@@ -10,7 +10,7 @@
 	canvas.height = CANVAS_HEIGHT;
 
 	const GAME_LIVES = 3;
-	const BRICK_ROWS = 1;
+	const BRICK_ROWS = 3;
 	const BRICK_COLS = 8;
 	
 	// Initliaze Background
