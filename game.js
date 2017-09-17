@@ -39,6 +39,14 @@
 		// Game Logic Updates
 		function update() {
 			ball.update();
+
+			var ballPos = ball.getBall();
+			var paddlePos = paddle.getPaddle();
+
+			// Detect Ball And Paddle Collision
+			if (ballPos.y + ballPos.r >= CANVAS_HEIGHT - paddlePos.h && ballPos.x >= paddlePos.x && ballPos.x <= paddlePos.x + paddlePos.w) {
+				ball.collided(paddle);
+			}
 		}
 
 		// Game Run Function

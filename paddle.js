@@ -3,7 +3,7 @@ const Paddle = function(c, context) {
 	const canvas = c;
 	const ctx = context;
 
-	const PADDLE_WIDTH = 80;
+	const PADDLE_WIDTH = 100;
 	const PADDLE_HEIGHT = 20;
 
 	const PADDLE_COLOR = 'red';
@@ -47,7 +47,7 @@ const Paddle = function(c, context) {
 				paddle.x -= 5;
 			}
 		}
-		
+
 		if(e.keyCode == MOVE_RIGHT_KEY) {
 			if(paddle.x + PADDLE_WIDTH <= canvas.width) {
 				paddle.x += 5;
@@ -55,9 +55,15 @@ const Paddle = function(c, context) {
 		}
 	}
 
+	function getPaddle() {
+		return paddle;
+	}
+
 	return {
+		TYPE: 'PADDLE',
 		init: init,
 		draw: draw,
-		update: update
+		update: update,
+		getPaddle: getPaddle
 	}
 }

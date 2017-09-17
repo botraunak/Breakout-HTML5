@@ -37,9 +37,27 @@ const Ball = function() {
 		}
 	}
 
+	function getBall() {
+		 return ball;
+	}
+
+	function collided(collisionWith) {
+
+		// Detect Collision with PADDLE
+		if (collisionWith.TYPE == "PADDLE") {
+			var paddle = collisionWith.getPaddle();
+			var third_start = paddle.x + (paddle.w/3);
+			var third_end = paddle.x + paddle.w - (paddle.w/3);
+
+			ball.vy = -ball.vy;
+		}
+	}
+
 	return {
 		init: init,
 		draw: draw,
-		update: update
+		update: update,
+		getBall: getBall,
+		collided: collided
 	}
 }
